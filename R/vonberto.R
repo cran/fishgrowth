@@ -74,7 +74,7 @@
 #' (1957), predicts length at age as:
 #'
 #' \deqn{\hat L_t ~=~ L_\infty\left(1\,-\,e^{-k(t-t_0)}\right)}{
-#'       Linf * (1 - exp(-k*(t-t0)))}
+#'       Lt = Linf * (1 - exp(-k*(t-t0)))}
 #'
 #' The variability of length at age increases linearly with length,
 #'
@@ -108,6 +108,9 @@
 #' Beverton, R.J.H. and Holt, S.J. (1957).
 #' \emph{On the dynamics of exploited fish populations}.
 #' London: Her Majesty's Stationery Office.
+#'
+#' The \code{\link{fishgrowth-package}} help page includes references describing
+#' the parameter estimation method.
 #'
 #' @seealso
 #' \code{\link{gcm}}, \code{\link{gompertz}}, \code{\link{gompertzo}},

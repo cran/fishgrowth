@@ -95,9 +95,9 @@ same curve using fewer parameters.
 
 The Schnute Case 3 model (Schnute 1981, Eq. 17) predicts length at age as:
 
-\deqn{L ~=~ \left[\;L_1^b\;+\;(L_2^b-L_1^b)\,
+\deqn{\hat L_t ~=~ \left[\;L_1^b\;+\;(L_2^b-L_1^b)\,
       \frac{t-t_1}{t_2-t_1}\,\right]^{1/b}}{
-      (L1^b + (L2^b-L1^b) * (t-t1) / (t2-t1))^(1/b)}
+      Lt = (L1^b + (L2^b-L1^b) * (t-t1) / (t2-t1))^(1/b)}
 
 The variability of length at age increases linearly with length,
 
@@ -262,6 +262,9 @@ A versatile growth model with statistically stable parameters.
 \emph{Canadian Journal of Fisheries and Aquatic Science}, \bold{38},
 1128-1140.
 \doi{10.1139/f81-153}.
+
+The \code{\link{fishgrowth-package}} help page includes references describing
+the parameter estimation method.
 }
 \seealso{
 \code{\link{gcm}}, \code{\link{gompertz}}, \code{\link{gompertzo}},

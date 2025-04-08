@@ -79,7 +79,7 @@
 #'
 #' \deqn{\hat L_t ~=~ L_1 \;+\; (L_2-L_1)\,
 #'       \frac{1\,-\,e^{-k(t-t_1)}}{\,1\,-\,e^{-k(t_2-t_1)}\,}}{
-#'       L1 + (L2-L1) * (1-exp(-k*(t-t1))) / (1-exp(-k*(t2-t1)))}
+#'       Lt = L1 + (L2-L1) * (1-exp(-k*(t-t1))) / (1-exp(-k*(t2-t1)))}
 #'
 #' The variability of length at age increases linearly with length,
 #'
@@ -115,6 +115,9 @@
 #' \emph{Canadian Journal of Fisheries and Aquatic Science}, \bold{37},
 #' 1337-1351.
 #' \doi{10.1139/f80-172}.
+#'
+#' The \code{\link{fishgrowth-package}} help page includes references describing
+#' the parameter estimation method.
 #'
 #' @seealso
 #' \code{\link{gcm}}, \code{\link{gompertz}}, \code{\link{gompertzo}},

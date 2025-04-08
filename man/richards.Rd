@@ -105,7 +105,8 @@ predicts length at age as:
 
 \deqn{\hat L_t ~=~ \left[\:L_1^b\;+\;(L_2^b-L_1^b)\,
       \frac{1-e^{-k(t-t_1)}}{1-e^{-k(t_2-t_1)}}\,\right]^{1/b}}{
-      (L1^b + (L2^b-L1^b) * (1-exp(-k*(t-t1))) / (1-exp(-k*(t2-t1))))^(1/b)}
+      Lt = (L1^b + (L2^b-L1^b) * (1-exp(-k*(t-t1))) /
+      (1-exp(-k*(t2-t1))))^(1/b)}
 
 The variability of length at age increases linearly with length,
 
@@ -270,6 +271,9 @@ A versatile growth model with statistically stable parameters.
 \emph{Canadian Journal of Fisheries and Aquatic Science}, \bold{38},
 1128-1140.
 \doi{10.1139/f81-153}.
+
+The \code{\link{fishgrowth-package}} help page includes references describing
+the parameter estimation method.
 }
 \seealso{
 \code{\link{gcm}}, \code{\link{gompertz}}, \code{\link{gompertzo}},

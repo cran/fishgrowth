@@ -83,9 +83,9 @@
 #' The Gompertz (1825) growth model, as parametrized by Schnute (1981, Eq. 16)
 #' predicts length at age as:
 #'
-#' \deqn{L ~=~ L_1\exp\!\left[\,\log(L_2/L_1)\,
+#' \deqn{\hat L_t ~=~ L_1\exp\!\left[\,\log(L_2/L_1)\,
 #'       \frac{1-e^{-k(t-t_1)}}{1-e^{-k(t_2-t_1)}}\,\right]}{
-#'       L1 * exp(log(L2/L1) * (1-exp(-k*(t-t1))) / (1-exp(-k*(t2-t1))))}
+#'       Lt = L1 * exp(log(L2/L1) * (1-exp(-k*(t-t1))) / (1-exp(-k*(t2-t1))))}
 #'
 #' The variability of length at age increases linearly with length,
 #'
@@ -122,6 +122,9 @@
 #' \emph{Canadian Journal of Fisheries and Aquatic Science}, \bold{38},
 #' 1128-1140.
 #' \doi{10.1139/f81-153}.
+#'
+#' The \code{\link{fishgrowth-package}} help page includes references describing
+#' the parameter estimation method.
 #'
 #' @seealso
 #' \code{\link{gcm}}, \code{gompertz}, \code{\link{gompertzo}},

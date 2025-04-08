@@ -89,9 +89,10 @@ tagging data only. The data vectors \code{Lrel}, \code{Lrec}, and
 \note{
 The growth cessation model (Maunder et al. 2018) predicts length at age as:
 
-\deqn{\hat L_t ~=~ r_{\max}\!\left[\,\frac{\log\left(1+e^{-kt_{50}}
+\deqn{\hat L_t ~=~ L_0 ~+~ r_{\max}\!\left[\,\frac{\log\left(1+e^{-kt_{50}}
       \right) \;-\;\log\left(1+e^{k(t-t_{50})}\right)}{k}\;+\;t\:\right]}{
-      L0 + rmax * ((log(1 + exp(-k*t50)) - log(1 + exp(k*(t-t50)))) / k + t)}
+      Lt = L0 + rmax * ((log(1 + exp(-k*t50)) - log(1 + exp(k*(t-t50)))) / k
+      + t)}
 
 The variability of length at age increases linearly with length,
 
@@ -208,7 +209,7 @@ head(summary(sdreport), 6)
 
 # Model 3: Stepwise estimation procedure, described by Maunder et al. (2018)
 # - estimate L0 and rmax using linear regression on younger fish
-# - estimate k and t0 using GCM and all data, keeping L0 and rmax fixed
+# - estimate k and t50 using GCM and all data, keeping L0 and rmax fixed
 
 # Estimate L0 and rmax
 plot(otoliths_skj, xlim=c(0,4), ylim=c(0,100))
@@ -263,6 +264,9 @@ The growth cessation model: a growth model for species showing a near
 cessation in growth with application to bigeye tuna (\emph{Thunnus obesus}).
 \emph{Marine Biology}, \bold{165}, 76.
 \doi{10.1007/s00227-018-3336-9}.
+
+The \code{\link{fishgrowth-package}} help page includes references describing
+the parameter estimation method.
 }
 \seealso{
 \code{gcm}, \code{\link{gompertz}}, \code{\link{gompertzo}},

@@ -79,8 +79,8 @@
 #' The Gompertz (1825) growth model, as parametrized by Ricker (1979, Eq. 23)
 #' predicts length at age as:
 #'
-#' \deqn{L ~=~ L_\infty\exp\!\big(\!\!-\!e^{-k(t-\tau)}\big)}{
-#'       Linf * exp(-exp(-k * (t-tau)))}
+#' \deqn{\hat L_t ~=~ L_\infty\exp\!\big(\!\!-\!e^{-k(t-\tau)}\big)}{
+#'       Lt = Linf * exp(-exp(-k * (t-tau)))}
 #'
 #' The variability of length at age increases linearly with length,
 #'
@@ -116,6 +116,9 @@
 #' Growth rates and models.
 #' In: W.S. Hoar et al. (eds.) \emph{Fish physiology 8: Bioenergetics and
 #' growth}. New York: Academic Press, pp. 677-743.
+#'
+#' The \code{\link{fishgrowth-package}} help page includes references describing
+#' the parameter estimation method.
 #'
 #' @seealso
 #' \code{\link{gcm}}, \code{\link{gompertz}}, \code{gompertzo},
