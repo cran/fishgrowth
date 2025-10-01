@@ -97,30 +97,39 @@ The Schnute Case 3 model (Schnute 1981, Eq. 17) predicts length at age as:
 
 \deqn{\hat L_t ~=~ \left[\;L_1^b\;+\;(L_2^b-L_1^b)\,
       \frac{t-t_1}{t_2-t_1}\,\right]^{1/b}}{
-      Lt = (L1^b + (L2^b-L1^b) * (t-t1) / (t2-t1))^(1/b)}
+      Lhat = (L1^b + (L2^b-L1^b) * (t-t1) / (t2-t1))^(1/b)}
 
 The variability of length at age increases linearly with length,
 
-\deqn{\sigma_L ~=~ \alpha \,+\, \beta \hat L}{
-      sigma_L = alpha + beta * Lhat}
+\deqn{\sigma_L ~=~ \alpha \,+\, \beta \hat L}{sigma = alpha + beta * Lhat}
 
-where the slope is \eqn{\beta=(\sigma_{\max}-\sigma_{\min}) /
-(L_{\max}-L_{\min})}{beta = (sigma_max-sigma_min) / (L_max-L_min)}, the
-intercept is \eqn{\alpha=\sigma_{\min} - \beta L_{\min}}{alpha = sigma_min -
-beta * L_min}, and \eqn{L_{\min}}{L_min} and \eqn{L_{\max}}{L_max} are the
-shortest and longest observed lengths in the data. Alternatively, growth
-variability can be modelled as a constant
+where the intercept is \eqn{\alpha=\sigma_{\min} - \beta L_{\min}}{alpha =
+sigma_min - beta * L_min}, the slope is
+\eqn{\beta=(\sigma_{\max}-\sigma_{\min}) / (L_{\max}-L_{\min})}{beta =
+(sigma_max-sigma_min) / (L_max-L_min)}, and \eqn{L_{\min}}{L_min} and
+\eqn{L_{\max}}{L_max} are the shortest and longest observed lengths in the
+data. Alternatively, growth variability can be modelled as a constant
 \eqn{\sigma_L=\sigma_{\min}}{sigma_L=sigma_min} that does not vary with
 length, by omitting \code{log_sigma_max} from the parameter list (see above).
 
-The negative log-likelihood is calculated by comparing the observed and
-predicted lengths:
-\preformatted{
-  nll_Loto <- -dnorm(Loto, Loto_hat, sigma_Loto, TRUE)
-  nll_Lrel <- -dnorm(Lrel, Lrel_hat, sigma_Lrel, TRUE)
-  nll_Lrec <- -dnorm(Lrec, Lrec_hat, sigma_Lrec, TRUE)
-  nll <- sum(nll_Loto) + sum(nll_Lrel) + sum(nll_Lrec)
-}
+The negative log-likelihood objective function integrates (sums) the
+likelihood components from the otoliths and tags,
+
+\deqn{f ~=~ \sum_{i=1}^{N_\mathrm{oto}}\, 0.5\log(2\pi) \,+\,
+      \log\sigma_i \,+\, \frac{(L_i-\hat L_i)^2}{2\sigma_i^2}}{f
+      = sum(0.5*log(2*pi) + log(sigma_i) + ((L_i-Lhat_i)^2)/(2*sigma_i^2))}
+\deqn{~~~~ ~+\,~ \sum_{j=1}^{N_\mathrm{tag}}\, 0.5\log(2\pi) \,+\,
+      \log\sigma_j \,+\, \frac{(L_j-\hat L_j)^2}{2\sigma_j^2}}{
+      + sum(0.5*log(2*pi) + log(sigma_j) + ((L_j-Lhat_j)^2)/(2*sigma_j^2))}
+\deqn{~~~~ ~+\,~ \sum_{k=1}^{N_\mathrm{tag}}\, 0.5\log(2\pi) \,+\,
+      \log\sigma_k \,+\, \frac{(L_k-\hat L_k)^2}{2\sigma_k^2}}{
+      + sum(0.5*log(2*pi) + log(sigma_k) + ((L_k-Lhat_k)^2)/(2*sigma_k^2))}
+
+where \eqn{L_i} are length measurements from the otolith data, \eqn{L_j} are
+length measurements at tag release, and \eqn{L_k} are length measurements at
+tag recapture. \if{html,latex}{\eqn{N_\mathrm{oto}} is the number of fish in
+the otolith data and \eqn{N_\mathrm{tag}} is the number of fish in the
+tagging data.}
 }
 \examples{
 # Model 1: Fit to haddock otoliths
@@ -159,9 +168,8 @@ summary(sdreport)
 band <- pred_band(x, model)
 areaplot::confplot(cbind(lower,upper)~age, band, xlim=c(0,18), ylim=c(0,100),
          ylab="len", col="mistyrose")
-points(len~age, otoliths_had, xlim=c(0,18), ylim=c(0,100),
-       pch=16, col="#0080a010")
-lines(x, Lhat, lwd=2, col=2)
+points(len~age, otoliths_had, pch=16, col="#0080a010")
+lines(Lhat~age, band, lwd=2, col=2)
 lines(lower~age, band, lty=1, lwd=0.5, col=2)
 lines(upper~age, band, lty=1, lwd=0.5, col=2)
 
@@ -175,7 +183,7 @@ x <- seq(0, 4, 0.1)
 points(lenRel~I(lenRel/60), tags_skj, col=4)
 points(lenRec~I(lenRel/60+liberty), tags_skj, col=3)
 lines(x, schnute3_curve(x, L1=25, L2=75, b=3, t1=0, t2=4), lty=2)
-legend("bottomright", c("otoliths","tag releases","tac recaptures",
+legend("bottomright", c("otoliths","tag releases","tag recaptures",
        "initial curve"), col=c(1,4,3,1), pch=c(1,1,1,NA), lty=c(0,0,0,2),
        lwd=c(1.2,1.2,1.2,1), bty="n", inset=0.02, y.intersp=1.25)
 
@@ -201,7 +209,7 @@ points(report$age, report$Lrel, col=4)
 points(report$age+report$liberty, report$Lrec, col=3)
 Lhat <- with(report, schnute3_curve(x, L1, L2, b, t1, t2))
 lines(x, Lhat, lwd=2)
-legend("bottomright", c("otoliths","tag releases","tac recaptures",
+legend("bottomright", c("otoliths","tag releases","tag recaptures",
        "model fit"), col=c(1,4,3,1), pch=c(1,1,1,NA), lty=c(0,0,0,1),
        lwd=c(1.2,1.2,1.2,2), bty="n", inset=0.02, y.intersp=1.25)
 
